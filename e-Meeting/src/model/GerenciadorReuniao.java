@@ -6,13 +6,13 @@ public class GerenciadorReuniao {
 
 	
 	
-	public Reuniao criarReuniao(ArrayList<Usuario> usuario,String local,String dataRe,String ata) {
+	public Reuniao criarReuniao(ArrayList<Usuario> usuarios,String local,String dataRe,String ata) {
 		
 		Reuniao r = new Reuniao();
 		r.setAta(ata);
 		r.setDataReuniao(dataRe);
 		r.setLocal(local);
-		r.setParticipantes(usuario);
+		r.setParticipantes(usuarios);
 		return r;
 	}
 	
@@ -22,5 +22,15 @@ public class GerenciadorReuniao {
 		return r;
 		
 	}
+        
+        public void listarReunioes(ArrayList<Reuniao> listaR){
+            
+            for (Reuniao r : listaR) {
+                
+                System.out.println(r);
+                
+            }
+            
+        }
 	
 }

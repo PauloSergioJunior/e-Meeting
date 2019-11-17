@@ -5,6 +5,7 @@
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>e-Meeting</name>
             <source-roots>
+                <root id="src.icons.dir"/>
                 <root id="src.dir" name="src"/>
             </source-roots>
             <test-roots/>

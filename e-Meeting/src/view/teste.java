@@ -11,10 +11,10 @@ public class teste {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Usuario us = new Usuario(0, "Paulo", 7035064, "Psjr", "123", "junior@gmail.com", "Alina");
-		Usuario us2 = new Usuario(1, "Junior", 55555, "Jr", "321", "Paulo@gmail.com", "Saraiva");
-		Usuario us3 = new Usuario(2, "Paul", 55555, "Pr", "32144", "Paul@gmail.com", "Oliveira");
-		Usuario us4 = new Usuario(3, "Oliveira", 55555, "Or", "32155", "Oliveira@gmail.com", "Saraiva");
+		Usuario us = new Usuario(0, "Paulo", 7035064,"123", "junior@gmail.com", "Alina");
+		Usuario us2 = new Usuario(1, "Junior", 55555,"321", "Paulo@gmail.com", "Saraiva");
+		Usuario us3 = new Usuario(2, "Paul", 55555,"32144", "Paul@gmail.com", "Oliveira");
+		Usuario us4 = new Usuario(3, "Oliveira", 55555,"32155", "Oliveira@gmail.com", "Saraiva");
 		ArrayList <Usuario> u = new ArrayList <Usuario>();
 		ArrayList <Usuario> u1 = new ArrayList <Usuario>();
 		ArrayList <Reuniao> r = new ArrayList <Reuniao>();

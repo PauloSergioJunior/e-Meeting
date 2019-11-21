@@ -260,7 +260,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             tipo = "Gestor de Recursos";
         }
         int cpf = Integer.parseInt(tfCPF.getText());
-        System.out.println(gu.criarUsuario(tfNome.getText(), cpf, tfSenha.getText(), tfEmail.getText(),tfEndereco.getText(),tipo));
+        //System.out.println(gu.criarUsuario(tfNome.getText(), cpf, tfSenha.getText(), tfEmail.getText(),tfEndereco.getText()));
         
         }else{
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");

@@ -1,6 +1,6 @@
 package model;
 
-public class Usuario {
+public abstract class Usuario implements GerenciaUsuarios{
 
     private int id;
     private String nome;
@@ -9,6 +9,7 @@ public class Usuario {
     private String email;
     private String endereco;
     private String tipo;
+    
 
     public Usuario(int id, String nome, long cpf, String senha, String email, String endereco) {
         this.id = id;
@@ -81,8 +82,8 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", senha=" + senha
-                + ", email=" + email + ", endereco=" + endereco + ", Tipo: " + tipo + "]";
+        return "Usuario [ id= " + id + ", nome= " + nome + ", cpf= " + cpf + ", senha= " + senha
+                + ", email= " + email + ", endereco= " + endereco + " Tipo= " +tipo+ " ]";
     }
 
 }

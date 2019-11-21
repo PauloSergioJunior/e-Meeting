@@ -11,17 +11,17 @@ package model;
  */
 public class GerenciaUsuario {
     
-    public Usuario criarUsuario(String nome,int CPF,String senha, String email,String endereco,String tipo){
-        
-        Usuario u = new Usuario();
-        u.setNome(nome);
-        u.setCpf(CPF);
-        u.setSenha(senha);
-        u.setEmail(email);
-        u.setEndereco(endereco);
-        u.setTipo(tipo);
-        return u;
-        
-    }
+//    public Usuario criarUsuario(String nome,int CPF,String senha, String email,String endereco){
+//        
+//        Usuario u = new Usuario();
+//        u.setNome(nome);
+//        u.setCpf(CPF);
+//        u.setSenha(senha);
+//        u.setEmail(email);
+//        u.setEndereco(endereco);
+//        
+//        return u;
+//        
+//    }
     
 }

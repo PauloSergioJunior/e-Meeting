@@ -6,7 +6,11 @@
 package view;
 
 import javax.swing.JOptionPane;
+import model.Coordenador;
 import model.GerenciaUsuario;
+import model.GestorRecursos;
+import model.Usuario;
+import model.UsuarioComum;
 import util.CamposSomenteNumeros;
 
 /**
@@ -250,14 +254,14 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         
         if(!tfNome.getText().isEmpty() && !tfCPF.getText().isEmpty() && !tfSenha.getText().isEmpty() && !tfEmail.getText().isEmpty() && !tfEndereco.getText().isEmpty()){
         
-        String tipo;
+        Usuario tipo;
         GerenciaUsuario gu = new GerenciaUsuario();
         if (rbUsuarioComum.isSelected()){
-            tipo = "Usuario Comum";
+            tipo = new UsuarioComum();
         }else if(rbCoordenador.isSelected()){
-            tipo = "Coordenador";
+            tipo = new Coordenador();
         }else{
-            tipo = "Gestor de Recursos";
+            tipo = new GestorRecursos();
         }
         int cpf = Integer.parseInt(tfCPF.getText());
         //System.out.println(gu.criarUsuario(tfNome.getText(), cpf, tfSenha.getText(), tfEmail.getText(),tfEndereco.getText()));

@@ -5,20 +5,21 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Paulo
  */
 public class Sala {
 
-    int id;
-    String nome;
-    boolean disponibilidade;
+    private int id;
+    private String nome;
+    private ArrayList<Reuniao> reunioesSala;
+    private boolean disponibilidade;
 
     public Sala() {
-
-        this.disponibilidade = true;
-
+        this.setDisponibilidade(false);
     }
 
     public int getId() {
@@ -37,6 +38,25 @@ public class Sala {
         this.nome = nome;
     }
 
+    public ArrayList<Reuniao> getReunioesSala() {
+        return reunioesSala;
+    }
+
+    public void setReunioesSala(ArrayList<Reuniao> reunioesSala) {
+        this.reunioesSala = reunioesSala;
+    }
+
+    public Reuniao listarReunioesSala() {
+
+        for (Reuniao r : getReunioesSala()) {
+
+            return r;
+
+        }
+        return null;
+
+    }
+
     public boolean isDisponibilidade() {
         return disponibilidade;
     }
@@ -44,12 +64,12 @@ public class Sala {
     public void setDisponibilidade(boolean disponibilidade) {
         this.disponibilidade = disponibilidade;
     }
+    
+    
 
     @Override
     public String toString() {
-        return "Sala{" + "id=" + id + ", nome=" + nome + ", disponibilidade=" + disponibilidade + '}';
+        return "Sala{ Nome= " + nome + " }";
     }
-    
-    
 
 }

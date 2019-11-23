@@ -1,6 +1,8 @@
 package model;
 
-public abstract class Usuario implements GerenciaUsuarios{
+import java.util.ArrayList;
+
+public abstract class Usuario implements GerenciaUsuarios {
 
     private int id;
     private String nome;
@@ -9,7 +11,7 @@ public abstract class Usuario implements GerenciaUsuarios{
     private String email;
     private String endereco;
     private String tipo;
-    
+    private ArrayList<Reuniao> reunioes;
 
     public Usuario(int id, String nome, long cpf, String senha, String email, String endereco) {
         this.id = id;
@@ -80,10 +82,29 @@ public abstract class Usuario implements GerenciaUsuarios{
         this.tipo = tipo;
     }
 
+    public ArrayList<Reuniao> getReunioes() {
+        return reunioes;
+    }
+
+    public void setReunioes(ArrayList<Reuniao> reunioes) {
+        this.reunioes = reunioes;
+    }
+    
+    public Reuniao listarReunioesConfirmadas(){
+    
+        for (Reuniao r : getReunioes()) {
+            
+            return r;
+            
+        }
+        return null;
+        
+    }
+    
     @Override
     public String toString() {
         return "Usuario [ id= " + id + ", nome= " + nome + ", cpf= " + cpf + ", senha= " + senha
-                + ", email= " + email + ", endereco= " + endereco + " Tipo= " +tipo+ " ]";
+                + ", email= " + email + ", endereco= " + endereco + " Tipo= " + tipo + " ]";
     }
 
 }

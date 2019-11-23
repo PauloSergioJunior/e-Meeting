@@ -16,13 +16,13 @@ public class Coordenador extends Usuario{
     }
 
     public Coordenador() {
-        TipoUsuario();
+        tipoUsuario();
     }
 
     
     
     @Override
-    public void TipoUsuario() {
+    public void tipoUsuario() {
         setTipo("Coordenador");
     }
     

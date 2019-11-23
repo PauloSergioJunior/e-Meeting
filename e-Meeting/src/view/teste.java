@@ -27,11 +27,11 @@ public class teste {
                 //System.out.println(u);
                 
                 GerenciadorReuniao gr = new GerenciadorReuniao();
-                Reuniao r1 = gr.criarReuniao(u, "Rua numero 0", "2019", "Assunto desconhecido");
-                Reuniao r2 = gr.criarReuniao(u1, "Rua numero 10", "2019", "Assunto conhecido");
+                //Reuniao r1 = gr.criarReuniao(u, "Rua numero 0", "2019", "Assunto desconhecido");
+                //Reuniao r2 = gr.criarReuniao(u1, "Rua numero 10", "2019", "Assunto conhecido");
                 
-                r.add(r1);
-                r.add(r2);
+                //r.add(r1);
+                //r.add(r2);
                 
                 gr.listarReunioes(r);
                 

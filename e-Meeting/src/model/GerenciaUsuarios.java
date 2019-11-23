@@ -11,6 +11,6 @@ package model;
  */
 public interface GerenciaUsuarios {
     
-    public abstract void TipoUsuario();
+    public abstract void tipoUsuario();
     
 }

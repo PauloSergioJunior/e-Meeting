@@ -11,38 +11,36 @@ import java.util.ArrayList;
  *
  * @author Paulo
  */
-public class UsuarioComum extends Usuario{
+public class UsuarioComum extends Usuario {
 
     public UsuarioComum() {
-        TipoUsuario();
+        tipoUsuario();
     }
 
     public UsuarioComum(int id, String nome, long cpf, String senha, String email, String endereco) {
         super(id, nome, cpf, senha, email, endereco);
     }
-    
-    public Reuniao criarReuniao(ArrayList<Usuario> usuarios, String local, String dataRe, String ata) {
+
+    public Reuniao criarReuniao(ArrayList<Usuario> usuarios, String local, String dataRe, String descricao) {
 
         Reuniao r = new Reuniao();
-        r.setAta(ata);
+        r.setDescricao(descricao);
         r.setDataReuniao(dataRe);
         r.setLocal(local);
         r.setParticipantes(usuarios);
         return r;
     }
 
-    public Reuniao editarAta(Reuniao r, String ata) {
+    public Reuniao editarAta(Reuniao r, String descricao) {
 
-        r.setAta(ata);
+        r.setDescricao(descricao);
         return r;
 
     }
 
     @Override
-    public void TipoUsuario() {
+    public void tipoUsuario() {
         setTipo("Usuario Comum");
     }
 
-    
-    
 }

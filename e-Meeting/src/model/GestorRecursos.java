@@ -19,10 +19,16 @@ public class GestorRecursos extends Usuario{
     }
 
     @Override
-    public void TipoUsuario() {
+    public void tipoUsuario() {
         setTipo("Gestor de Recursos");
     }
     
-    
+    public Sala criarSala(String nome){
+        
+        Sala s = new Sala();
+        s.setNome(nome);
+        return s;
+        
+    }
     
 }

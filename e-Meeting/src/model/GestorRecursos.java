@@ -5,14 +5,16 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Paulo
  */
-public class GestorRecursos extends Usuario{
+public class GestorRecursos extends Usuario {
 
-    public GestorRecursos(int id, String nome, long cpf, String senha, String email, String endereco) {
-        super(id, nome, cpf, senha, email, endereco);
+    public GestorRecursos(String nome, long cpf, String senha, String email, String endereco, String tipo, ArrayList<Reuniao> reunioes) {
+        super(nome, cpf, senha, email, endereco, tipo, reunioes);
     }
 
     public GestorRecursos() {
@@ -22,13 +24,13 @@ public class GestorRecursos extends Usuario{
     public void tipoUsuario() {
         setTipo("Gestor de Recursos");
     }
-    
-    public Sala criarSala(String nome){
-        
+
+    public Sala criarSala(String nome) {
+
         Sala s = new Sala();
         s.setNome(nome);
         return s;
-        
+
     }
-    
+
 }

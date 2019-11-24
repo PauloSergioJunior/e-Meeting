@@ -5,6 +5,9 @@
  */
 package view;
 
+import connection.ConexaoSQLite;
+import dao.UsuarioDao;
+
 /**
  *
  * @author Paulo
@@ -16,6 +19,9 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
+        ConexaoSQLite cSQL = new ConexaoSQLite();
+        UsuarioDao udao = new UsuarioDao(cSQL);
+        udao.criarTabelaUsuario();
     }
 
     /**

@@ -13,15 +13,17 @@ public abstract class Usuario implements GerenciaUsuarios {
     private String tipo;
     private ArrayList<Reuniao> reunioes;
 
-    public Usuario(int id, String nome, long cpf, String senha, String email, String endereco) {
-        this.id = id;
+    public Usuario(String nome, long cpf, String senha, String email, String endereco, String tipo, ArrayList<Reuniao> reunioes) {
         this.nome = nome;
         this.cpf = cpf;
         this.senha = senha;
         this.email = email;
         this.endereco = endereco;
+        this.tipo = tipo;
+        this.reunioes = reunioes;
     }
 
+    
     public Usuario() {
 
     }

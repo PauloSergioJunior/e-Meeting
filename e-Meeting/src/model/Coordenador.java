@@ -5,25 +5,25 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Paulo
  */
-public class Coordenador extends Usuario{
+public class Coordenador extends Usuario {
 
-    public Coordenador(int id, String nome, long cpf, String senha, String email, String endereco) {
-        super(id, nome, cpf, senha, email, endereco);
+    public Coordenador(String nome, long cpf, String senha, String email, String endereco, String tipo, ArrayList<Reuniao> reunioes) {
+        super(nome, cpf, senha, email, endereco, tipo, reunioes);
     }
 
     public Coordenador() {
         tipoUsuario();
     }
 
-    
-    
     @Override
     public void tipoUsuario() {
         setTipo("Coordenador");
     }
-    
+
 }

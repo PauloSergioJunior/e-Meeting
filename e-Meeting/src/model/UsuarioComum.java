@@ -17,8 +17,8 @@ public class UsuarioComum extends Usuario {
         tipoUsuario();
     }
 
-    public UsuarioComum(int id, String nome, long cpf, String senha, String email, String endereco) {
-        super(id, nome, cpf, senha, email, endereco);
+    public UsuarioComum(String nome, long cpf, String senha, String email, String endereco, String tipo, ArrayList<Reuniao> reunioes) {
+        super(nome, cpf, senha, email, endereco, tipo, reunioes);
     }
 
     public Reuniao criarReuniao(ArrayList<Usuario> usuarios, String local, String dataRe, String descricao) {

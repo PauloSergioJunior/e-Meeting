@@ -5,6 +5,8 @@
  */
 package view;
 
+import connection.ConexaoSQLite;
+import dao.UsuarioDao;
 import javax.swing.JOptionPane;
 import model.Coordenador;
 import model.GerenciaUsuario;
@@ -42,7 +44,6 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         tfNome = new javax.swing.JTextField();
         tfCPF = new javax.swing.JTextField();
-        tfSenha = new javax.swing.JTextField();
         tfEmail = new javax.swing.JTextField();
         tfEndereco = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -50,12 +51,9 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        rbUsuarioComum = new javax.swing.JRadioButton();
-        rbCoordenador = new javax.swing.JRadioButton();
-        rbGestorRecursos = new javax.swing.JRadioButton();
         btnCadastrarUsuario = new javax.swing.JButton();
         btnVoltarPrincipal = new javax.swing.JButton();
+        tfSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -95,8 +93,6 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
         tfCPF.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
-        tfSenha.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-
         tfEmail.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
         tfEndereco.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -115,36 +111,6 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel6.setText("Endereço:");
-
-        jLabel7.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel7.setText("Tipo:");
-
-        rbUsuarioComum.setBackground(new java.awt.Color(230, 240, 240));
-        bgTipoUsuario.add(rbUsuarioComum);
-        rbUsuarioComum.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        rbUsuarioComum.setSelected(true);
-        rbUsuarioComum.setText("Usuario Comum");
-        rbUsuarioComum.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbUsuarioComum.setName(""); // NOI18N
-
-        rbCoordenador.setBackground(new java.awt.Color(230, 240, 240));
-        bgTipoUsuario.add(rbCoordenador);
-        rbCoordenador.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        rbCoordenador.setText("Coordenador");
-        rbCoordenador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbCoordenador.setName(""); // NOI18N
-        rbCoordenador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbCoordenadorActionPerformed(evt);
-            }
-        });
-
-        rbGestorRecursos.setBackground(new java.awt.Color(230, 240, 240));
-        bgTipoUsuario.add(rbGestorRecursos);
-        rbGestorRecursos.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        rbGestorRecursos.setText("Gestor de Recursos");
-        rbGestorRecursos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rbGestorRecursos.setName(""); // NOI18N
 
         btnCadastrarUsuario.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         btnCadastrarUsuario.setText("Cadastrar");
@@ -168,39 +134,34 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(38, 38, 38))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tfEmail)
-                            .addComponent(tfSenha, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCPF, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfNome, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfCPF)
+                            .addComponent(tfSenha))
                         .addGap(303, 303, 303))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(rbUsuarioComum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCadastrarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(rbCoordenador)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbGestorRecursos))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(btnVoltarPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCadastrarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnVoltarPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -210,61 +171,45 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                     .addComponent(jLabel4))
-                .addGap(18, 18, 18)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(49, 49, 49)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(rbUsuarioComum)
-                    .addComponent(rbCoordenador)
-                    .addComponent(rbGestorRecursos))
-                .addGap(57, 57, 57)
+                .addGap(61, 61, 61)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltarPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(80, 80, 80))
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 99, 640, 560);
+        jPanel2.setBounds(0, 99, 640, 510);
 
-        setSize(new java.awt.Dimension(627, 650));
+        setSize(new java.awt.Dimension(627, 586));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void rbCoordenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCoordenadorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbCoordenadorActionPerformed
 
     private void btnCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarUsuarioActionPerformed
         
         if(!tfNome.getText().isEmpty() && !tfCPF.getText().isEmpty() && !tfSenha.getText().isEmpty() && !tfEmail.getText().isEmpty() && !tfEndereco.getText().isEmpty()){
-        
-        Usuario tipo;
-        GerenciaUsuario gu = new GerenciaUsuario();
-        if (rbUsuarioComum.isSelected()){
-            tipo = new UsuarioComum();
-        }else if(rbCoordenador.isSelected()){
-            tipo = new Coordenador();
-        }else{
-            tipo = new GestorRecursos();
-        }
-        int cpf = Integer.parseInt(tfCPF.getText());
-        //System.out.println(gu.criarUsuario(tfNome.getText(), cpf, tfSenha.getText(), tfEmail.getText(),tfEndereco.getText()));
+            
+            ConexaoSQLite cSQL = new ConexaoSQLite();
+            cSQL.conectar();
+            UsuarioDao udao = new UsuarioDao(cSQL);
+            long cpf = Long.parseLong(tfCPF.getText());
+            udao.inserirUsuario(tfNome.getText(), cpf, tfSenha.getText(), tfEmail.getText(), tfEndereco.getText(), "Usuario Comum");
         
         }else{
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
@@ -326,16 +271,12 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton rbCoordenador;
-    private javax.swing.JRadioButton rbGestorRecursos;
-    private javax.swing.JRadioButton rbUsuarioComum;
     private javax.swing.JTextField tfCPF;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfNome;
-    private javax.swing.JTextField tfSenha;
+    private javax.swing.JPasswordField tfSenha;
     // End of variables declaration//GEN-END:variables
 }

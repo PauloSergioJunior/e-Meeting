@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class GestorRecursos extends Usuario {
 
-    public GestorRecursos(String nome, long cpf, String senha, String email, String endereco, String tipo, ArrayList<Reuniao> reunioes) {
+    public GestorRecursos(String nome, String cpf, String senha, String email, String endereco, String tipo, ArrayList<Reuniao> reunioes) {
         super(nome, cpf, senha, email, endereco, tipo, reunioes);
     }
 

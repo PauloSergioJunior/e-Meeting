@@ -211,8 +211,15 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             ConexaoSQLite cSQL = new ConexaoSQLite();
             cSQL.conectar();
             UsuarioDao udao = new UsuarioDao(cSQL);
-            if(!udao.verificarCpfExiste(tfCPF.getText())){
-            udao.inserirUsuario(tfNome.getText(), tfCPF.getText(), tfSenha.getText(), tfEmail.getText(), tfEndereco.getText(), "Usuario Comum");
+            Usuario uc = new UsuarioComum();
+            uc.setNome(tfNome.getText());
+            uc.setCpf(tfCPF.getText());
+            uc.setSenha(tfSenha.getText());
+            uc.setEmail(tfEmail.getText());
+            uc.setEndereco(tfEndereco.getText());
+            
+            if(!udao.verificarCpfExiste(uc.getCpf())){
+            udao.inserirUsuario(uc);
             }else{
                 JOptionPane.showMessageDialog(null, "Cpf já Existe!!");
             }

@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Reuniao;
 
 /**
  *
@@ -30,12 +31,11 @@ public class ReuniaoDao {
         String sql = "CREATE TABLE IF NOT EXISTS reuniao"
                 + "("
                 + "id integer PRIMARY KEY AUTOINCREMENT,"
-                + "nome text NOT NULL,"
-                + "cpf text NOT NULL,"
-                + "senha text NOT NULL,"
-                + "email text NOT NULL,"
-                + "endereco text NOT NULL,"
-                + "tipo text NOT NULL"
+                + "descricao text NOT NULL,"
+                + "data text NOT NULL,"
+                + "horaInicio text NOT NULL,"
+                + "horaFim text NOT NULL,"
+                + "idsala integer references sala(id)"
                 + ");";
 
         //executando o sql de criar tabelas
@@ -48,10 +48,11 @@ public class ReuniaoDao {
 
             stmt.execute(sql);
 
-            System.out.println("Tabela usuario criada!");
+            System.out.println("Tabela reuniao criada!");
 
         } catch (SQLException e) {
             //mensagem de erro na criação da tabela
+            System.out.println(e);
             System.out.println("Não criou!!");
         } finally {
             if (conectou) {
@@ -61,28 +62,26 @@ public class ReuniaoDao {
 
     }
 
-    public void inserirReuniao(String nome, String cpf, String senha, String email, String endereco, String tipo) {
+    public void inserirReuniao(Reuniao r) {
 
-        String sqlInsert = " INSERT INTO usuario ("
-                + "nome,"
-                + "cpf,"
-                + "senha,"
-                + "email,"
-                + "endereco,"
-                + "tipo"
-                + ") VALUES(?,?,?,?,?,?)"
+        String sqlInsert = " INSERT INTO reuniao ("
+                + "descricao,"
+                + "data,"
+                + "horaInicio,"
+                + "horaFim,"
+                + "sala"
+                + ") VALUES(?,?,?,?,?)"
                 + ";";
 
         PreparedStatement preparedStatement = conexaoSQLite.criarPreparedStatement(sqlInsert);
 
         try {
 
-            preparedStatement.setString(1, nome);
-            preparedStatement.setString(2, cpf);
-            preparedStatement.setString(3, senha);
-            preparedStatement.setString(4, email);
-            preparedStatement.setString(5, endereco);
-            preparedStatement.setString(6, tipo);
+            preparedStatement.setString(1, r.getDescricao());
+            preparedStatement.setString(2, r.getDataReuniao());
+            preparedStatement.setString(3, r.getHorarioInicio());
+            preparedStatement.setString(4, r.getHorarioFim());
+            preparedStatement.setString(5, r.getLocal().getNome());
 
             int resultado = preparedStatement.executeUpdate();
 

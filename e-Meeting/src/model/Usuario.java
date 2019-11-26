@@ -6,14 +6,14 @@ public abstract class Usuario implements GerenciaUsuarios {
 
     private int id;
     private String nome;
-    private long cpf;
+    private String cpf;
     private String senha;
     private String email;
     private String endereco;
     private String tipo;
     private ArrayList<Reuniao> reunioes;
 
-    public Usuario(String nome, long cpf, String senha, String email, String endereco, String tipo, ArrayList<Reuniao> reunioes) {
+    public Usuario(String nome, String cpf, String senha, String email, String endereco, String tipo, ArrayList<Reuniao> reunioes) {
         this.nome = nome;
         this.cpf = cpf;
         this.senha = senha;
@@ -44,11 +44,11 @@ public abstract class Usuario implements GerenciaUsuarios {
         this.nome = nome;
     }
 
-    public long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

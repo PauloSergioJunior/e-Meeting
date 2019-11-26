@@ -17,7 +17,7 @@ public class UsuarioComum extends Usuario {
         tipoUsuario();
     }
 
-    public UsuarioComum(String nome, long cpf, String senha, String email, String endereco, String tipo, ArrayList<Reuniao> reunioes) {
+    public UsuarioComum(String nome, String cpf, String senha, String email, String endereco, String tipo, ArrayList<Reuniao> reunioes) {
         super(nome, cpf, senha, email, endereco, tipo, reunioes);
     }
 
@@ -26,7 +26,7 @@ public class UsuarioComum extends Usuario {
         Reuniao r = new Reuniao();
         r.setDescricao(descricao);
         r.setDataReuniao(dataRe);
-        r.setLocal(local);
+       // r.setLocal(local);
         r.setParticipantes(usuarios);
         return r;
     }

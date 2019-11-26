@@ -15,11 +15,9 @@ public class Sala {
 
     private int id;
     private String nome;
-    private ArrayList<Reuniao> reunioesSala;
-    private boolean disponibilidade;
 
     public Sala() {
-        this.setDisponibilidade(false);
+        
     }
 
     public int getId() {
@@ -37,35 +35,6 @@ public class Sala {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public ArrayList<Reuniao> getReunioesSala() {
-        return reunioesSala;
-    }
-
-    public void setReunioesSala(ArrayList<Reuniao> reunioesSala) {
-        this.reunioesSala = reunioesSala;
-    }
-
-    public Reuniao listarReunioesSala() {
-
-        for (Reuniao r : getReunioesSala()) {
-
-            return r;
-
-        }
-        return null;
-
-    }
-
-    public boolean isDisponibilidade() {
-        return disponibilidade;
-    }
-
-    public void setDisponibilidade(boolean disponibilidade) {
-        this.disponibilidade = disponibilidade;
-    }
-    
-    
 
     @Override
     public String toString() {

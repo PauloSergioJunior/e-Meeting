@@ -9,12 +9,12 @@ public class Reuniao {
     private String dataReuniao;
     private String horarioInicio;
     private String horarioFim;
-    private String local;
+    private Sala local;
     private boolean proprietario;
     private ArrayList<Usuario> participantes;
     private boolean verificado;
 
-    public Reuniao(int id, String ata, String dataReuniao, String local) {
+    public Reuniao(int id, String ata, String dataReuniao, Sala local) {
         this.id = id;
         this.descricao = ata;
         this.dataReuniao = dataReuniao;
@@ -50,11 +50,11 @@ public class Reuniao {
         this.dataReuniao = dataReuniao;
     }
 
-    public String getLocal() {
+    public Sala getLocal() {
         return local;
     }
 
-    public void setLocal(String local) {
+    public void setLocal(Sala local) {
         this.local = local;
     }
 

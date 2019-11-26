@@ -63,7 +63,7 @@ public class UsuarioDao {
 
     }
 
-    public void inserirUsuario(String nome, String cpf, String senha, String email, String endereco, String tipo) {
+    public void inserirUsuario(Usuario u) {
 
         String sqlInsert = " INSERT INTO usuario ("
                 + "nome,"
@@ -79,12 +79,12 @@ public class UsuarioDao {
 
         try {
 
-            preparedStatement.setString(1, nome);
-            preparedStatement.setString(2, cpf);
-            preparedStatement.setString(3, senha);
-            preparedStatement.setString(4, email);
-            preparedStatement.setString(5, endereco);
-            preparedStatement.setString(6, tipo);
+            preparedStatement.setString(1, u.getNome());
+            preparedStatement.setString(2, u.getCpf());
+            preparedStatement.setString(3, u.getSenha());
+            preparedStatement.setString(4, u.getEmail());
+            preparedStatement.setString(5, u.getEndereco());
+            preparedStatement.setString(6, u.getTipo());
 
             int resultado = preparedStatement.executeUpdate();
 

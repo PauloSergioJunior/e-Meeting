@@ -6,6 +6,8 @@
 package view;
 
 import connection.ConexaoSQLite;
+import dao.ReuniaoDao;
+import dao.SalaDao;
 import dao.UsuarioDao;
 
 /**
@@ -20,8 +22,12 @@ public class TelaInicial extends javax.swing.JFrame {
     public TelaInicial() {
         initComponents();
         ConexaoSQLite cSQL = new ConexaoSQLite();
+        SalaDao sdao = new SalaDao(cSQL);
+        sdao.criarTabelaSala();
         UsuarioDao udao = new UsuarioDao(cSQL);
         udao.criarTabelaUsuario();
+        ReuniaoDao rdao = new ReuniaoDao(cSQL);
+        rdao.criarTabelaReuniao();
     }
 
     /**

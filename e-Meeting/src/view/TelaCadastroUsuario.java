@@ -26,7 +26,6 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
      */
     public TelaCadastroUsuario() {
         initComponents();
-        tfCPF.setDocument(new CamposSomenteNumeros());
     }
 
     /**
@@ -43,7 +42,6 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         tfNome = new javax.swing.JTextField();
-        tfCPF = new javax.swing.JTextField();
         tfEmail = new javax.swing.JTextField();
         tfEndereco = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -54,6 +52,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         btnCadastrarUsuario = new javax.swing.JButton();
         btnVoltarPrincipal = new javax.swing.JButton();
         tfSenha = new javax.swing.JPasswordField();
+        tfCPF = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -71,9 +70,9 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(188, 188, 188)
+                .addGap(134, 134, 134)
                 .addComponent(jLabel1)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addContainerGap(257, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,8 +89,6 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
         tfNome.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         tfNome.setToolTipText("");
-
-        tfCPF.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
         tfEmail.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
@@ -129,6 +126,12 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             }
         });
 
+        try {
+            tfCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -155,8 +158,8 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tfCPF)
-                            .addComponent(tfSenha))
+                            .addComponent(tfSenha)
+                            .addComponent(tfCPF, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(303, 303, 303))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnCadastrarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,8 +176,8 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(tfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
@@ -197,7 +200,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 99, 640, 510);
 
-        setSize(new java.awt.Dimension(627, 586));
+        setSize(new java.awt.Dimension(534, 568));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -208,9 +211,11 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             ConexaoSQLite cSQL = new ConexaoSQLite();
             cSQL.conectar();
             UsuarioDao udao = new UsuarioDao(cSQL);
-            long cpf = Long.parseLong(tfCPF.getText());
-            udao.inserirUsuario(tfNome.getText(), cpf, tfSenha.getText(), tfEmail.getText(), tfEndereco.getText(), "Usuario Comum");
-        
+            if(!udao.verificarCpfExiste(tfCPF.getText())){
+            udao.inserirUsuario(tfNome.getText(), tfCPF.getText(), tfSenha.getText(), tfEmail.getText(), tfEndereco.getText(), "Usuario Comum");
+            }else{
+                JOptionPane.showMessageDialog(null, "Cpf já Existe!!");
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
         }
@@ -273,7 +278,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField tfCPF;
+    private javax.swing.JFormattedTextField tfCPF;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfNome;

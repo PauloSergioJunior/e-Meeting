@@ -12,24 +12,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Usuario;
-import model.UsuarioComum;
 
 /**
  *
  * @author Paulo
  */
-public class UsuarioDao {
-
+public class ReuniaoDao {
+    
     private final ConexaoSQLite conexaoSQLite;
 
-    public UsuarioDao(ConexaoSQLite uConexaoSQLite) {
+    public ReuniaoDao(ConexaoSQLite uConexaoSQLite) {
         this.conexaoSQLite = uConexaoSQLite;
     }
 
-    public void criarTabelaUsuario() {
+    public void criarTabelaReuniao() {
 
-        String sql = "CREATE TABLE IF NOT EXISTS usuario"
+        String sql = "CREATE TABLE IF NOT EXISTS reuniao"
                 + "("
                 + "id integer PRIMARY KEY AUTOINCREMENT,"
                 + "nome text NOT NULL,"
@@ -63,7 +61,7 @@ public class UsuarioDao {
 
     }
 
-    public void inserirUsuario(String nome, String cpf, String senha, String email, String endereco, String tipo) {
+    public void inserirReuniao(String nome, String cpf, String senha, String email, String endereco, String tipo) {
 
         String sqlInsert = " INSERT INTO usuario ("
                 + "nome,"
@@ -109,7 +107,7 @@ public class UsuarioDao {
 
     }
 
-    public void listarTodosUsuarios() {
+    public void listarTodasReunioes() {
 
         ResultSet resultSet = null;
         Statement statement = null;
@@ -142,95 +140,4 @@ public class UsuarioDao {
         }
 
     }
-
-    public boolean verificarLogin(String cpf, String senha) {
-
-        ConexaoSQLite conexaoSQLite = new ConexaoSQLite();
-
-        conexaoSQLite.conectar();
-
-        ResultSet resultSet = null;
-        PreparedStatement preparedStatement = null;
-
-        String sql = "SELECT * "
-                + " FROM usuario"
-                + " WHERE cpf = ? AND senha = ?;";
-
-        try {
-
-
-            preparedStatement = conexaoSQLite.criarPreparedStatement(sql);
-            preparedStatement.setString(1, cpf);
-            preparedStatement.setString(2, senha);
-
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                
-                
-                System.out.println("PESSOA SELECIONADA");
-                System.out.println("ID = " + resultSet.getInt("id"));
-                System.out.println("NOME = " + resultSet.getString("nome"));
-                System.out.println("CPF = " + resultSet.getString("cpf"));
-                
-                return true;
-
-            }
-
-        } catch (SQLException e) {
-            return false;
-        } finally {
-            try {
-                resultSet.close();
-                preparedStatement.close();
-                conexaoSQLite.desconectar();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return false;
-    }
-    
-        public boolean verificarCpfExiste(String cpf) {
-
-        ConexaoSQLite conexaoSQLite = new ConexaoSQLite();
-
-        conexaoSQLite.conectar();
-
-        ResultSet resultSet = null;
-        PreparedStatement preparedStatement = null;
-
-        String sql = "SELECT * "
-                + " FROM usuario"
-                + " WHERE cpf = ?;";
-
-        try {
-
-
-            preparedStatement = conexaoSQLite.criarPreparedStatement(sql);
-            preparedStatement.setString(1, cpf);
-
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-               
-                System.out.println("Usuario Existe!!!");
-                return true;
-
-            }
-
-        } catch (SQLException e) {
-            return false;
-        } finally {
-            try {
-                resultSet.close();
-                preparedStatement.close();
-                conexaoSQLite.desconectar();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return false;
-    }
-
 }

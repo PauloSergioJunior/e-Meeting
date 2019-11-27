@@ -207,7 +207,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private void btnCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarUsuarioActionPerformed
         
         if(!tfNome.getText().isEmpty() && !tfCPF.getText().isEmpty() && !tfSenha.getText().isEmpty() && !tfEmail.getText().isEmpty() && !tfEndereco.getText().isEmpty()){
-            
+             
             ConexaoSQLite cSQL = new ConexaoSQLite();
             cSQL.conectar();
             UsuarioDao udao = new UsuarioDao(cSQL);

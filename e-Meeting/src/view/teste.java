@@ -42,7 +42,7 @@ public class teste {
                 ConexaoSQLite connection = new ConexaoSQLite();
                 UsuarioDao udao = new UsuarioDao(connection);
                 //udao.criarTabelaUsuario();
-                udao.listarTodosUsuarios();
+//                udao.listarTodosUsuarios();
 //                connection.conectar();
 //                connection.desconectar();
 

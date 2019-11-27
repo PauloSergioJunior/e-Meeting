@@ -7,7 +7,6 @@ package dao;
 
 import connection.ConexaoSQLite;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -18,24 +17,21 @@ import model.Reuniao;
  *
  * @author Paulo
  */
-public class ReuniaoDao {
+public class Reuniao_UsuarioDao {
     
-    private final ConexaoSQLite conexaoSQLite;
+        private final ConexaoSQLite conexaoSQLite;
 
-    public ReuniaoDao(ConexaoSQLite uConexaoSQLite) {
+    public Reuniao_UsuarioDao(ConexaoSQLite uConexaoSQLite) {
         this.conexaoSQLite = uConexaoSQLite;
     }
 
-    public void criarTabelaReuniao() {
+    public void criarTabelaReuniao_Usuario() {
 
-        String sql = "CREATE TABLE IF NOT EXISTS reuniao"
+        String sql = "CREATE TABLE IF NOT EXISTS reuniao_usuario"
                 + "("
                 + "id integer PRIMARY KEY AUTOINCREMENT,"
-                + "descricao text NOT NULL,"
-                + "data text NOT NULL,"
-                + "horaInicio text NOT NULL,"
-                + "horaFim text NOT NULL,"
-                + "idsala integer references sala(id)"
+                + "idusuario integer references usuario(id),"
+                + "idreuniao integer references reuniao(id)"
                 + ");";
 
         //executando o sql de criar tabelas
@@ -48,7 +44,7 @@ public class ReuniaoDao {
 
             stmt.execute(sql);
 
-            System.out.println("Tabela reuniao criada!");
+            System.out.println("Tabela reuniao_usuario criada!");
 
         } catch (SQLException e) {
             //mensagem de erro na criação da tabela
@@ -62,7 +58,7 @@ public class ReuniaoDao {
 
     }
 
-    public void inserirReuniao(Reuniao r) {
+    public void inserirReuniao_Usuario(Reuniao r) {
 
         String sqlInsert = " INSERT INTO reuniao ("
                 + "descricao,"
@@ -105,37 +101,6 @@ public class ReuniaoDao {
         }
 
     }
-
-    public void listarTodasReunioes() {
-
-        ResultSet resultSet = null;
-        PreparedStatement stmt = null;
-        conexaoSQLite.conectar();
-
-        String query = "SELECT * FROM usuario;";
-
-
-        try {
-            stmt = conexaoSQLite.criarPreparedStatement(query);
-
-            while (resultSet.next()) {
-                System.out.println("Dados dos usuarios");
-                System.out.println("id= " + resultSet.getInt("id"));
-                System.out.println("Nome =" + resultSet.getString("nome"));
-                System.out.println("Nome =" + resultSet.getString("tipo"));
-            }
-        } catch (SQLException esql) {
-            System.out.println("Erro = " + esql);
-        } finally {
-            try {
-                resultSet.close();
-                stmt.close();
-                conexaoSQLite.desconectar();
-            } catch (SQLException e) {
-                System.out.println("Erro ao fechar o banco " + e);
-            }
-
-        }
-
-    }
+    
+    
 }

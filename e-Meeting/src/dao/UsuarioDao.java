@@ -6,10 +6,12 @@
 package dao;
 
 import connection.ConexaoSQLite;
+import java.awt.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Usuario;
@@ -109,8 +111,9 @@ public class UsuarioDao {
 
     }
 
-    public void listarTodosUsuarios() {
-
+    public ArrayList<Usuario> listarTodosUsuarios() {
+       
+        ArrayList<Usuario> listU = new ArrayList<Usuario>();
         ResultSet resultSet = null;
         Statement statement = null;
         conexaoSQLite.conectar();
@@ -123,10 +126,16 @@ public class UsuarioDao {
             resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                System.out.println("Dados dos usuarios");
-                System.out.println("id= " + resultSet.getInt("id"));
-                System.out.println("Nome =" + resultSet.getString("nome"));
-                System.out.println("Nome =" + resultSet.getString("tipo"));
+                Usuario u = new UsuarioComum();
+                u.setId(resultSet.getInt("id"));
+                u.setNome(resultSet.getString("nome"));
+                u.setCpf(resultSet.getString("cpf"));
+                u.setSenha(resultSet.getString("senha"));
+                u.setEndereco(resultSet.getString("endereco"));
+                u.setEmail(resultSet.getString("email"));
+                u.setTipo(resultSet.getString("tipo"));
+                listU.add(u);
+
             }
         } catch (SQLException esql) {
             System.out.println("Erro = " + esql);
@@ -140,7 +149,7 @@ public class UsuarioDao {
             }
 
         }
-
+            return listU;
     }
 
     public boolean verificarLogin(String cpf, String senha) {

@@ -241,5 +241,102 @@ public class UsuarioDao {
         }
         return false;
     }
+        
+        public String pegarUsuario(String cpf) {
+
+        ConexaoSQLite conexaoSQLite = new ConexaoSQLite();
+
+        conexaoSQLite.conectar();
+
+        ResultSet resultSet = null;
+        PreparedStatement preparedStatement = null;
+
+        String sql = "SELECT * "
+                + " FROM usuario"
+                + " WHERE cpf = ?;";
+
+        try {
+
+
+            preparedStatement = conexaoSQLite.criarPreparedStatement(sql);
+            preparedStatement.setString(1, cpf);
+            
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                
+                
+                System.out.println("PESSOA SELECIONADA");
+                System.out.println("ID = " + resultSet.getInt("id"));
+                System.out.println("NOME = " + resultSet.getString("nome"));
+                System.out.println("CPF = " + resultSet.getString("cpf"));
+                
+                return resultSet.getString("nome");
+
+            }
+
+        } catch (SQLException e) {
+            return null;
+        } finally {
+            try {
+                resultSet.close();
+                preparedStatement.close();
+                conexaoSQLite.desconectar();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return "Nada encontrado";
+    }
+        
+        
+    public String pegarTipoUsuario(String cpf) {
+
+        ConexaoSQLite conexaoSQLite = new ConexaoSQLite();
+
+        conexaoSQLite.conectar();
+
+        ResultSet resultSet = null;
+        PreparedStatement preparedStatement = null;
+
+        String sql = "SELECT * "
+                + " FROM usuario"
+                + " WHERE cpf = ?;";
+
+        try {
+
+
+            preparedStatement = conexaoSQLite.criarPreparedStatement(sql);
+            preparedStatement.setString(1, cpf);
+            
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                
+                
+                System.out.println("PESSOA SELECIONADA");
+                System.out.println("ID = " + resultSet.getInt("id"));
+                System.out.println("NOME = " + resultSet.getString("nome"));
+                System.out.println("CPF = " + resultSet.getString("cpf"));
+                
+                return resultSet.getString("tipo");
+
+            }
+
+        } catch (SQLException e) {
+            return null;
+        } finally {
+            try {
+                resultSet.close();
+                preparedStatement.close();
+                conexaoSQLite.desconectar();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return "Nada encontrado";
+    }    
 
 }

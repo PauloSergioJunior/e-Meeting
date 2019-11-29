@@ -10,9 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Reuniao;
+import model.Usuario;
 
 /**
  *
@@ -35,7 +37,8 @@ public class ReuniaoDao {
                 + "data text NOT NULL,"
                 + "horaInicio text NOT NULL,"
                 + "horaFim text NOT NULL,"
-                + "idsala integer references sala(id)"
+                + "proprietario text NOT NULL,"
+                + "sala text NOT NULL"
                 + ");";
 
         //executando o sql de criar tabelas
@@ -69,8 +72,9 @@ public class ReuniaoDao {
                 + "data,"
                 + "horaInicio,"
                 + "horaFim,"
-                + "sala"
-                + ") VALUES(?,?,?,?,?)"
+                + "sala,"
+                + "proprietario"
+                + ") VALUES(?,?,?,?,?,?)"
                 + ";";
 
         PreparedStatement preparedStatement = conexaoSQLite.criarPreparedStatement(sqlInsert);
@@ -81,18 +85,19 @@ public class ReuniaoDao {
             preparedStatement.setString(2, r.getDataReuniao());
             preparedStatement.setString(3, r.getHorarioInicio());
             preparedStatement.setString(4, r.getHorarioFim());
-            preparedStatement.setString(5, r.getLocal().getNome());
+            preparedStatement.setString(5, r.getLocal());
+            preparedStatement.setString(6, r.getProprietario());
 
             int resultado = preparedStatement.executeUpdate();
 
             if (resultado == 1) {
-                System.out.println("Usuario inserida!");
+                System.out.println("Reuniao inserida!");
             } else {
-                System.out.println("Usuario não inserido! =[");
+                System.out.println("Reuniao não inserido! =[");
             }
 
         } catch (SQLException e) {
-            System.out.println("Usuario não inserida!");
+            System.out.println("Reuniao não inserida!");
         } finally {
             if (preparedStatement != null) {
                 try {
@@ -106,23 +111,29 @@ public class ReuniaoDao {
 
     }
 
-    public void listarTodasReunioes() {
-
+    public ArrayList<Reuniao> listarTodasReunioes() {
+        ArrayList<Reuniao> listR = new ArrayList<Reuniao>();
         ResultSet resultSet = null;
         PreparedStatement stmt = null;
         conexaoSQLite.conectar();
 
-        String query = "SELECT * FROM usuario;";
+        String query = "SELECT * FROM reuniao;";
 
 
         try {
             stmt = conexaoSQLite.criarPreparedStatement(query);
+            resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
-                System.out.println("Dados dos usuarios");
-                System.out.println("id= " + resultSet.getInt("id"));
-                System.out.println("Nome =" + resultSet.getString("nome"));
-                System.out.println("Nome =" + resultSet.getString("tipo"));
+                Reuniao r = new Reuniao();
+                r.setId(resultSet.getInt("id"));
+                r.setDescricao(resultSet.getString("descricao"));
+                r.setDataReuniao(resultSet.getString("data"));
+                r.setHorarioInicio(resultSet.getString("horaInicio"));
+                r.setHorarioFim(resultSet.getString("horaFim"));
+                r.setLocal(resultSet.getString("sala")); 
+                listR.add(r);
+                        
             }
         } catch (SQLException esql) {
             System.out.println("Erro = " + esql);
@@ -136,6 +147,87 @@ public class ReuniaoDao {
             }
 
         }
-
+        return listR;
     }
+    
+    public Reuniao gerarAtaDownload(String id) {
+
+        ConexaoSQLite conexaoSQLite = new ConexaoSQLite();
+
+        conexaoSQLite.conectar();
+
+        ResultSet resultSet = null;
+        PreparedStatement preparedStatement = null;
+
+        String sql = "SELECT * "
+                + " FROM reuniao"
+                + " WHERE id = ?;";
+
+        try {
+
+
+            preparedStatement = conexaoSQLite.criarPreparedStatement(sql);
+            preparedStatement.setString(1, id);
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+               Reuniao r = new Reuniao();
+                r.setId(resultSet.getInt("id"));
+                r.setDescricao(resultSet.getString("descricao"));
+                r.setDataReuniao(resultSet.getString("data"));
+                r.setHorarioInicio(resultSet.getString("horaInicio"));
+                r.setHorarioFim(resultSet.getString("horaFim"));
+                r.setLocal(resultSet.getString("sala")); 
+                r.setProprietario(resultSet.getString("proprietario")); 
+                return r;
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            try {
+                resultSet.close();
+                preparedStatement.close();
+                conexaoSQLite.desconectar();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
+    
+     public boolean atualizarAta(Reuniao r) {
+
+        ConexaoSQLite conexaoSQLite = new ConexaoSQLite();
+
+        conexaoSQLite.conectar();
+        PreparedStatement preparedStatement = null;
+
+        String sql = "UPDATE reuniao"
+                + " SET descricao = ?"
+                + " WHERE id = ?;";
+
+        try {
+            preparedStatement = conexaoSQLite.criarPreparedStatement(sql);
+            preparedStatement.setString(1, r.getDescricao());
+            preparedStatement.setInt(2, r.getId());
+            preparedStatement.executeUpdate();
+            System.out.println("Editado!");
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            try {
+                preparedStatement.close();
+                conexaoSQLite.desconectar();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
+    
+    
 }

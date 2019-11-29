@@ -6,10 +6,12 @@
 package view;
 
 import connection.ConexaoSQLite;
+import dao.GestorRecursosDao;
 import dao.ReuniaoDao;
 import dao.Reuniao_UsuarioDao;
 import dao.SalaDao;
 import dao.UsuarioDao;
+import model.Sala;
 
 /**
  *
@@ -31,6 +33,9 @@ public class TelaInicial extends javax.swing.JFrame {
         rdao.criarTabelaReuniao();
         Reuniao_UsuarioDao uRDao = new Reuniao_UsuarioDao(cSQL);
         uRDao.criarTabelaReuniao_Usuario();
+        GestorRecursosDao grDao = new GestorRecursosDao(cSQL);
+        grDao.criarTabelaGestorRecurso();
+        
     }
 
     /**

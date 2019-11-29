@@ -9,12 +9,12 @@ public class Reuniao {
     private String dataReuniao;
     private String horarioInicio;
     private String horarioFim;
-    private Sala local;
-    private boolean proprietario;
+    private String local;
+    private String proprietario;
     private ArrayList<Usuario> participantes;
     private boolean verificado;
 
-    public Reuniao(int id, String ata, String dataReuniao, Sala local) {
+    public Reuniao(int id, String ata, String dataReuniao, String local) {
         this.id = id;
         this.descricao = ata;
         this.dataReuniao = dataReuniao;
@@ -50,11 +50,11 @@ public class Reuniao {
         this.dataReuniao = dataReuniao;
     }
 
-    public Sala getLocal() {
+    public String getLocal() {
         return local;
     }
 
-    public void setLocal(Sala local) {
+    public void setLocal(String local) {
         this.local = local;
     }
 
@@ -66,11 +66,11 @@ public class Reuniao {
         this.participantes = participante;
     }
 
-    public boolean isProprietario() {
+    public String getProprietario() {
         return proprietario;
     }
 
-    public void setProprietario(boolean proprietario) {
+    public void setProprietario(String proprietario) {
         this.proprietario = proprietario;
     }
 
@@ -98,11 +98,9 @@ public class Reuniao {
         this.verificado = verificado;
     }
 
-    
-    
     @Override
     public String toString() {
-        return "Reuniao{" + "Ata=" + descricao + ", dataReuniao=" + dataReuniao + ", horarioInicio=" + horarioInicio + ", horarioFim=" + horarioFim + ", local=" + local + ", participantes=" + participantes + '}';
+        return "Reuniao{" + "Ata=" + descricao + ", dataReuniao=" + dataReuniao + ", horarioInicio=" + horarioInicio + ", horarioFim=" + horarioFim + ", local=" + local + '}';
     }
 
 }

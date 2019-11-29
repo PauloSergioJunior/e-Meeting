@@ -1,16 +1,19 @@
 package view;
 
 import connection.ConexaoSQLite;
+import dao.ReuniaoDao;
 import dao.UsuarioDao;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.GerenciadorReuniao;
 import model.Reuniao;
 import model.Usuario;
+import util.GeradorTxt;
 
 public class teste {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
 //		Usuario us = new Usuario(0, "Paulo", 7035064,"123", "junior@gmail.com", "Alina");
@@ -39,14 +42,22 @@ public class teste {
                 
                 //System.out.println( gr.criarReuniao(u, "Rua numero 0", "2019", "Assunto desconhecido"));
                 //System.out.println(gr.editarAta(gr.criarReuniao(u, "Rua numero 0", "2019", "Assunto desconhecido"), "Assunto conhecido"));
-                ConexaoSQLite connection = new ConexaoSQLite();
-                UsuarioDao udao = new UsuarioDao(connection);
+//                ConexaoSQLite connection = new ConexaoSQLite();
+//                UsuarioDao udao = new UsuarioDao(connection);
                 //udao.criarTabelaUsuario();
 //                udao.listarTodosUsuarios();
 //                connection.conectar();
 //                connection.desconectar();
 
-                
+                    ConexaoSQLite uConexaoSQLite = new ConexaoSQLite();
+                    ReuniaoDao rd = new ReuniaoDao(uConexaoSQLite);
+                    uConexaoSQLite.conectar();
+                    
+                    GeradorTxt gt = new GeradorTxt();
+                    
+                    gt.gerarTxt(rd.gerarAtaDownload("1"));
+                    
+
 	}      
 
 }

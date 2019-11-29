@@ -58,37 +58,32 @@ public class Reuniao_UsuarioDao {
 
     }
 
-    public void inserirReuniao_Usuario(Reuniao r) {
+    public void inserirReuniao_Usuario(int idusuario, int idreuniao) {
 
-        String sqlInsert = " INSERT INTO reuniao ("
-                + "descricao,"
-                + "data,"
-                + "horaInicio,"
-                + "horaFim,"
-                + "sala"
-                + ") VALUES(?,?,?,?,?)"
+        String sqlInsert = " INSERT INTO reuniao_usuario ("
+                + "idusuario,"
+                + "idreuniao"
+                + ") VALUES(?,?)"
                 + ";";
 
         PreparedStatement preparedStatement = conexaoSQLite.criarPreparedStatement(sqlInsert);
 
         try {
 
-            preparedStatement.setString(1, r.getDescricao());
-            preparedStatement.setString(2, r.getDataReuniao());
-            preparedStatement.setString(3, r.getHorarioInicio());
-            preparedStatement.setString(4, r.getHorarioFim());
-            preparedStatement.setString(5, r.getLocal().getNome());
+            preparedStatement.setInt(1, idusuario);
+            preparedStatement.setInt(2, idreuniao);
+           
 
             int resultado = preparedStatement.executeUpdate();
 
             if (resultado == 1) {
-                System.out.println("Usuario inserida!");
+                System.out.println("Usuario_Reuniao inserida!");
             } else {
-                System.out.println("Usuario não inserido! =[");
+                System.out.println("Usuario_Reuniao não inserido! =[");
             }
 
         } catch (SQLException e) {
-            System.out.println("Usuario não inserida!");
+            System.out.println("Usuario_reuniao não inserida!");
         } finally {
             if (preparedStatement != null) {
                 try {

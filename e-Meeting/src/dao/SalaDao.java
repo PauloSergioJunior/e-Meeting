@@ -6,8 +6,15 @@
 package dao;
 
 import connection.ConexaoSQLite;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Reuniao;
+import model.Sala;
 
 /**
  *
@@ -51,5 +58,74 @@ public class SalaDao {
             }
         }
 
+    }
+    
+    public void inserirSala(Sala s) {
+
+        String sqlInsert = " INSERT INTO sala("
+                + "nome"
+                + ")VALUES(?)"
+                + ";";
+
+        PreparedStatement preparedStatement = conexaoSQLite.criarPreparedStatement(sqlInsert);
+
+        try {
+            System.out.println(s.getNome());
+            preparedStatement.setString(1, s.getNome());
+            
+            int resultado = preparedStatement.executeUpdate();
+            if (resultado == 1) {
+                System.out.println("Sala inserida!");
+            } else {
+                System.out.println("Sala não inserido!");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Sala não inserida!");
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            conexaoSQLite.desconectar();
+        }
+
+    }
+
+    public ArrayList<Sala> listarTodasSalas() {
+        ArrayList<Sala> listS = new ArrayList<Sala>();
+        ResultSet resultSet = null;
+        PreparedStatement stmt = null;
+        conexaoSQLite.conectar();
+
+        String query = "SELECT * FROM sala;";
+
+
+        try {
+            stmt = conexaoSQLite.criarPreparedStatement(query);
+            resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                Sala s = new Sala();
+                s.setId(resultSet.getInt("id"));
+                s.setNome(resultSet.getString("nome"));
+                listS.add(s);
+                        
+            }
+        } catch (SQLException esql) {
+            System.out.println("Erro = " + esql);
+        } finally {
+            try {
+                resultSet.close();
+                stmt.close();
+                conexaoSQLite.desconectar();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar o banco " + e);
+            }
+
+        }
+        return listS;
     }
 }

@@ -17,6 +17,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
     }
+    
+    String cpfUsuarioAtual;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,20 +30,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        lblNomeUsuario = new javax.swing.JLabel();
-        btnLogoff = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        dsktTelaP = new javax.swing.JDesktopPane();
+        mbPrincipal = new javax.swing.JMenuBar();
+        menuReuniao = new javax.swing.JMenu();
+        miCadastReuniao = new javax.swing.JMenuItem();
+        miReunioesConf = new javax.swing.JMenuItem();
+        miNaoConf = new javax.swing.JMenuItem();
+        miEditarAta = new javax.swing.JMenuItem();
+        miSugerirSala = new javax.swing.JMenuItem();
+        miBaixarAtas = new javax.swing.JMenuItem();
+        menuSair = new javax.swing.JMenu();
+        miLogoff = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -55,159 +54,166 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(0, 113, 146));
+        dsktTelaP.setBackground(new java.awt.Color(230, 240, 240));
+        dsktTelaP.setAutoscrolls(true);
 
-        jLabel1.setFont(new java.awt.Font("Serif", 0, 48)); // NOI18N
-        jLabel1.setText("Ola,");
+        javax.swing.GroupLayout dsktTelaPLayout = new javax.swing.GroupLayout(dsktTelaP);
+        dsktTelaP.setLayout(dsktTelaPLayout);
+        dsktTelaPLayout.setHorizontalGroup(
+            dsktTelaPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 540, Short.MAX_VALUE)
+        );
+        dsktTelaPLayout.setVerticalGroup(
+            dsktTelaPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 353, Short.MAX_VALUE)
+        );
 
-        lblNomeUsuario.setFont(new java.awt.Font("Serif", 0, 48)); // NOI18N
+        mbPrincipal.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        btnLogoff.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        btnLogoff.setText("Sair");
-        btnLogoff.addActionListener(new java.awt.event.ActionListener() {
+        menuReuniao.setText("Reunião");
+
+        miCadastReuniao.setText("Cadastrar Reunião");
+        miCadastReuniao.setIconTextGap(5);
+        miCadastReuniao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogoffActionPerformed(evt);
+                miCadastReuniaoActionPerformed(evt);
             }
         });
+        menuReuniao.add(miCadastReuniao);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(291, 291, 291)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(lblNomeUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
-                .addComponent(btnLogoff, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(lblNomeUsuario))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(btnLogoff, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 770, 100);
-
-        jPanel3.setBackground(new java.awt.Color(230, 240, 240));
-
-        jTable1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Id", "Data", "Hora Inicio", "Hora Fim", "Descrição"
+        miReunioesConf.setText("Listar Reuniões Confirmadas");
+        miReunioesConf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miReunioesConfActionPerformed(evt);
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        });
+        menuReuniao.add(miReunioesConf);
 
-        jTable2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Id", "Data", "Hora Inicio", "Hora Fim", "Descrição"
+        miNaoConf.setText("Listar Reuniões não Confirmadas");
+        miNaoConf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miNaoConfActionPerformed(evt);
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        });
+        menuReuniao.add(miNaoConf);
 
-        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel3.setText("Lista de Reuniôes Confirmadas");
+        miEditarAta.setText("Editar Ata");
+        miEditarAta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miEditarAtaActionPerformed(evt);
+            }
+        });
+        menuReuniao.add(miEditarAta);
 
-        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel4.setText("Lista de reuniôes não confirmadas");
+        miSugerirSala.setText("Sugerir sala");
+        miSugerirSala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSugerirSalaActionPerformed(evt);
+            }
+        });
+        menuReuniao.add(miSugerirSala);
 
-        jButton1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButton1.setText("Confirmar");
+        miBaixarAtas.setText("Baixar atas");
+        miBaixarAtas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miBaixarAtasActionPerformed(evt);
+            }
+        });
+        menuReuniao.add(miBaixarAtas);
 
-        jButton2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButton2.setText("Negar");
+        mbPrincipal.add(menuReuniao);
 
-        jButton3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButton3.setText("Listar descrições para download");
+        menuSair.setText("Sair");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(19, 19, 19))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(97, 97, 97))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86))
+        miLogoff.setText("Logoff");
+        miLogoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miLogoffActionPerformed(evt);
+            }
+        });
+        menuSair.add(miLogoff);
+
+        mbPrincipal.add(menuSair);
+
+        setJMenuBar(mbPrincipal);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dsktTelaP)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(48, 48, 48))
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dsktTelaP)
         );
 
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(0, 100, 780, 500);
-
-        setSize(new java.awt.Dimension(769, 596));
+        setSize(new java.awt.Dimension(556, 411));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoffActionPerformed
+    private void miCadastReuniaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastReuniaoActionPerformed
+        
+        TelaCadastReuniao tlR = new TelaCadastReuniao();
+        tlR.pegarUsuarioAtual(cpfUsuarioAtual);
+        dsktTelaP.add(tlR);
+        tlR.setVisible(true);
 
-        TelaInicial ti = new TelaInicial();
-        ti.setVisible(true);
+    }//GEN-LAST:event_miCadastReuniaoActionPerformed
+
+    private void miLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLogoffActionPerformed
+        
+        TelaInicial tl = new TelaInicial();
+        tl.setVisible(true);
         this.dispose();
         
-    }//GEN-LAST:event_btnLogoffActionPerformed
+    }//GEN-LAST:event_miLogoffActionPerformed
 
+    private void miEditarAtaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEditarAtaActionPerformed
+        
+        TelaEditarAta eAta = new TelaEditarAta();
+        dsktTelaP.add(eAta);
+        eAta.setVisible(true);
+        
+    }//GEN-LAST:event_miEditarAtaActionPerformed
+
+    private void miNaoConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miNaoConfActionPerformed
+                
+        TelaDasReunioesGestor tRG = new TelaDasReunioesGestor();
+        dsktTelaP.add(tRG);
+        tRG.setVisible(true);
+        
+    }//GEN-LAST:event_miNaoConfActionPerformed
+
+    private void miSugerirSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSugerirSalaActionPerformed
+        
+        TelaCadastroSala tS = new TelaCadastroSala();
+        dsktTelaP.add(tS);
+        tS.setVisible(true);
+        
+    }//GEN-LAST:event_miSugerirSalaActionPerformed
+
+    private void miReunioesConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miReunioesConfActionPerformed
+        
+        TelaReunioesConf trC = new TelaReunioesConf();
+        dsktTelaP.add(trC);
+        trC.setVisible(true);
+        
+    }//GEN-LAST:event_miReunioesConfActionPerformed
+
+    private void miBaixarAtasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBaixarAtasActionPerformed
+        TelaDownloadAta tDA = new TelaDownloadAta();
+        dsktTelaP.add(tDA);
+        tDA.setVisible(true);
+    }//GEN-LAST:event_miBaixarAtasActionPerformed
+
+    public void usuarioAtual(String cpfUsAtual){
+        
+        cpfUsuarioAtual = cpfUsAtual;
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -244,20 +250,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogoff;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JDesktopPane dsktTelaP;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JLabel lblNomeUsuario;
+    private javax.swing.JMenuBar mbPrincipal;
+    private javax.swing.JMenu menuReuniao;
+    private javax.swing.JMenu menuSair;
+    private javax.swing.JMenuItem miBaixarAtas;
+    private javax.swing.JMenuItem miCadastReuniao;
+    private javax.swing.JMenuItem miEditarAta;
+    private javax.swing.JMenuItem miLogoff;
+    private javax.swing.JMenuItem miNaoConf;
+    private javax.swing.JMenuItem miReunioesConf;
+    private javax.swing.JMenuItem miSugerirSala;
     // End of variables declaration//GEN-END:variables
 }

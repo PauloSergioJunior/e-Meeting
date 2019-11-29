@@ -35,7 +35,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnLogar = new javax.swing.JButton();
         btnVoltarPrinc = new javax.swing.JButton();
         tfpSenha = new javax.swing.JPasswordField();
         tfLogin = new javax.swing.JFormattedTextField();
@@ -79,10 +79,10 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel2.setText("Entre com suas credências");
 
-        jButton1.setText("Entrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnLogar.setText("Entrar");
+        btnLogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnLogarActionPerformed(evt);
             }
         });
 
@@ -117,7 +117,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(177, 177, 177)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                            .addComponent(btnLogar, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                             .addComponent(btnVoltarPrinc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
@@ -143,7 +143,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(tfpSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLogar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVoltarPrinc, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(54, Short.MAX_VALUE))
@@ -157,25 +157,35 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarPrincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarPrincActionPerformed
-        
+
         TelaInicial ti = new TelaInicial();
         ti.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_btnVoltarPrincActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
         ConexaoSQLite connection = new ConexaoSQLite();
         UsuarioDao ud = new UsuarioDao(connection);
-        if(ud.verificarLogin(tfLogin.getText() ,tfpSenha.getText())){
-            TelaPrincipal tp = new TelaPrincipal();
-            tp.setVisible(true);
-            this.dispose();
-        }else{
+        if (ud.verificarLogin(tfLogin.getText(), tfpSenha.getText())) {
+
+            if (ud.pegarTipoUsuario(tfLogin.getText()).equalsIgnoreCase("Gestor de Recursos")) {
+
+                TelaDoGestor tG = new TelaDoGestor();
+                tG.setVisible(true);
+                this.dispose();
+
+            } else if (ud.pegarTipoUsuario(tfLogin.getText()).equalsIgnoreCase("Usuario Comum")) {
+                TelaPrincipal tp = new TelaPrincipal();
+                tp.usuarioAtual(tfLogin.getText());
+                tp.setVisible(true);
+                this.dispose();
+            }
+        } else {
             JOptionPane.showMessageDialog(null, "Login ou Senha Incorretos");
         }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_btnLogarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,8 +223,8 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogar;
     private javax.swing.JButton btnVoltarPrinc;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

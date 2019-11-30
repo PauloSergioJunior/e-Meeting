@@ -27,7 +27,7 @@ public class UsuarioComum extends Usuario {
         r.setDescricao(descricao);
         r.setDataReuniao(dataRe);
        // r.setLocal(local);
-        r.setParticipantes(usuarios);
+        //r.setParticipantes(usuarios);
         return r;
     }
 

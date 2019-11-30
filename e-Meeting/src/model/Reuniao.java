@@ -11,7 +11,7 @@ public class Reuniao {
     private String horarioFim;
     private String local;
     private String proprietario;
-    private ArrayList<Usuario> participantes;
+    private ArrayList<UsuarioComum> participantes;
     private boolean verificado;
 
     public Reuniao(int id, String ata, String dataReuniao, String local) {
@@ -58,12 +58,12 @@ public class Reuniao {
         this.local = local;
     }
 
-    public ArrayList<Usuario> getParticipantes() {
+    public ArrayList<UsuarioComum> getParticipantes() {
         return participantes;
     }
 
-    public void setParticipantes(ArrayList<Usuario> participante) {
-        this.participantes = participante;
+    public void setParticipantes(UsuarioComum participante) {
+        this.participantes.add(participante);
     }
 
     public String getProprietario() {
@@ -100,7 +100,7 @@ public class Reuniao {
 
     @Override
     public String toString() {
-        return "Reuniao{" + "Ata=" + descricao + ", dataReuniao=" + dataReuniao + ", horarioInicio=" + horarioInicio + ", horarioFim=" + horarioFim + ", local=" + local + '}';
+        return "Reuniao{" + "Ata=" + descricao + ", dataReuniao=" + dataReuniao + ", horarioInicio=" + horarioInicio + ", horarioFim=" + horarioFim + ", local=" + local + "Participantes" + participantes +'}';
     }
 
 }

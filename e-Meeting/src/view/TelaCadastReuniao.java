@@ -16,6 +16,7 @@ import model.GestorRecursos;
 import model.Reuniao;
 import model.Sala;
 import model.Usuario;
+import model.UsuarioComum;
 
 /**
  *
@@ -31,7 +32,8 @@ public class TelaCadastReuniao extends javax.swing.JInternalFrame {
         alimentarTabela();
         alimentarListSala();
     }
-
+    
+    Usuario u;
     String cpfUsuarioAtual;
     
     /**
@@ -358,10 +360,20 @@ public class TelaCadastReuniao extends javax.swing.JInternalFrame {
             
             UsuarioDao uD = new UsuarioDao(cSql);
             cSql.conectar();
+            System.out.println(tbParticipantes.getRowCount());
+            for(int i = 0; i == tbParticipantes.getRowCount(); i++){
+                u = new UsuarioComum();
+                u.setNome(tbParticipantes.getValueAt(i, 1).toString());
+                r.setParticipantes((UsuarioComum) u);
+                System.out.println(u);
+                System.out.println(r);
+                System.out.println("Oi");
+            }
             r.setProprietario(uD.pegarUsuario(cpfUsuarioAtual));
             grDao.inserirGestorRecurso(r);
             cSql.conectar();
-            rDao.inserirReuniao(r);
+            //rDao.inserirReuniao(r);
+            JOptionPane.showMessageDialog(null, "Reunião Criada");
             
             
         }else{
